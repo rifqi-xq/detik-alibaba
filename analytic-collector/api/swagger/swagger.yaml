@@ -1,0 +1,175 @@
+consumes:
+- application/json
+definitions:
+  DetikCollectorVersion:
+    description: DetikCollectorVersion media type (default view)
+    example:
+      git: "000000"
+      version: "1.0"
+    properties:
+      git:
+        description: Git commit hash
+        example: "000000"
+        type: string
+      version:
+        description: Application version
+        example: "1.0"
+        type: string
+    required:
+    - version
+    title: 'Mediatype identifier: application/vnd.detik.collector.version+json; view=default'
+    type: object
+  DetikError:
+    description: DetikError media type (default view)
+    example:
+      code: UNAUTHORIZED
+      msg: Unauthorized access
+    properties:
+      code:
+        description: Message ID
+        example: UNAUTHORIZED
+        type: string
+      msg:
+        description: Localized message
+        example: Unauthorized access
+        type: string
+    required:
+    - code
+    - msg
+    title: 'Mediatype identifier: application/vnd.detik.error+json; view=default'
+    type: object
+info:
+  description: API for managing Analytic Collector
+  title: Analytic collector API
+  version: "1.0"
+paths:
+  /detikanalytic/__dtm.gif:
+    get:
+      operationId: collector#collectDtm
+      produces:
+      - application/vnd.detik.error+json
+      - image/gif
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BadRequest is returned if input object is missing required
+            attributes or their values are out of range.
+          schema:
+            $ref: '#/definitions/DetikError'
+        "401":
+          description: Unauthorized is returned when user request does not contain
+            authentication token or authentication is invalid. The response must include
+            a valid "WWW-Authenticate" header.
+          headers:
+            WWW-Authenticate:
+              default: Bearer
+              description: https://tools.ietf.org/html/rfc7235
+              type: string
+          schema:
+            $ref: '#/definitions/DetikError'
+        "403":
+          description: Forbidden is returned when user is not authorized to perform
+            an action.
+          schema:
+            $ref: '#/definitions/DetikError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/DetikError'
+      schemes:
+      - https
+      summary: Saves analytic data
+      tags:
+      - collector
+    post:
+      operationId: collector#collectPost
+      produces:
+      - application/vnd.detik.error+json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: BadRequest is returned if input object is missing required
+            attributes or their values are out of range.
+          schema:
+            $ref: '#/definitions/DetikError'
+        "401":
+          description: Unauthorized is returned when user request does not contain
+            authentication token or authentication is invalid. The response must include
+            a valid "WWW-Authenticate" header.
+          headers:
+            WWW-Authenticate:
+              default: Bearer
+              description: https://tools.ietf.org/html/rfc7235
+              type: string
+          schema:
+            $ref: '#/definitions/DetikError'
+        "403":
+          description: Forbidden is returned when user is not authorized to perform
+            an action.
+          schema:
+            $ref: '#/definitions/DetikError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/DetikError'
+      schemes:
+      - https
+      summary: Saves analytic data
+      tags:
+      - collector
+  /detikanalytic/swagger.json:
+    get:
+      operationId: swagger#/detikanalytic/swagger.json
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+      schemes:
+      - https
+      summary: Download api/swagger/swagger.json
+  /detikanalytic/version:
+    get:
+      operationId: version#version
+      produces:
+      - application/vnd.detik.collector.version+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DetikCollectorVersion'
+      schemes:
+      - https
+      summary: Return application's version and commit hash
+      tags:
+      - version
+produces:
+- application/json
+responses:
+  BadRequest:
+    description: BadRequest is returned if input object is missing required attributes
+      or their values are out of range.
+    schema:
+      $ref: '#/definitions/DetikError'
+  Forbidden:
+    description: Forbidden is returned when user is not authorized to perform an action.
+    schema:
+      $ref: '#/definitions/DetikError'
+  NoContent:
+    description: No Content
+  Unauthorized:
+    description: Unauthorized is returned when user request does not contain authentication
+      token or authentication is invalid. The response must include a valid "WWW-Authenticate"
+      header.
+    headers:
+      WWW-Authenticate:
+        default: Bearer
+        description: https://tools.ietf.org/html/rfc7235
+        type: string
+    schema:
+      $ref: '#/definitions/DetikError'
+schemes:
+- https
+swagger: "2.0"
