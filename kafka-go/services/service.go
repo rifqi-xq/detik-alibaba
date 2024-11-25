@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	controllers "analytic-collector/workers/collector" // Import WorkerPool and other related components
+	controllers "kafka-go/services/workers/collector"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/inconshreveable/log15"
