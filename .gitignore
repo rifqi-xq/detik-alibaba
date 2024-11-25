@@ -22,7 +22,7 @@ go.work
 go.work.sum
 
 # env file
-analytic-collector/.env
+*.env
 
 /.vscode
 /.history
