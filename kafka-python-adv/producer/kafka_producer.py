@@ -1,16 +1,17 @@
-from confluent_kafka import Producer, KafkaException, KafkaError
+from confluent_kafka import Producer, KafkaException
 import json
 import logging
 import time
 import setting
+
+from fastapi import FastAPI, HTTPException
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-# Kafka configuration
-# Load configurations
+# Kafka producer configuration
 kafka_conf = setting.kafka_setting
 oss_conf = setting.oss_setting
 producer = Producer(
@@ -27,9 +28,33 @@ producer = Producer(
         "fetch.message.max.bytes": "524288",  # 512 KB
     }
 )
-TOPIC_NAME = kafka_conf["topic_name"]
+
+# Initiate 
+app = FastAPI()
 
 
+
+################################################################
+
+# API endpoint
+@app.post("/stream-data")
+async def receive_stream_data(data):
+    try:
+        produce_data(data.dict())
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Failed to send data to Kafka: {e}"
+        )
+    return {"status": "success", "data_sent": data.dict()}
+
+# Ensure all messages are flushed from Kafka producer on shutdown
+@app.on_event("shutdown")
+def shutdown_event():
+    producer.flush()
+
+################################################################
+
+# Kafka producer
 def delivery_report(err, msg):
     if err is not None:
         logging.error(f"Message delivery failed: {err}")
@@ -44,17 +69,17 @@ def produce_data(data:dict):
         
         message = json.dumps(data).encode("utf8")
         producer.produce(
-            TOPIC_NAME,
-            str(message),
+            kafka_conf["topic"],
+            message,
             callback=delivery_report,
         )
-        producer.flush()  # Ensure all messages are delivered
-        logging.info(f"Data sent to topic {TOPIC_NAME}: {data}")
+        producer.poll(0)
+        logging.info(f"Data sent to topic {kafka_conf["topic"]}: {data}")
     except KafkaException as e:
         logging.error(f"Kafka error: {e}")
     except Exception as e:
         logging.error(f"Error producing data: {e}")
 
 
-if __name__ == "__main__":
-    produce_data(example_data)
+# if __name__ == "__main__":
+#     produce_data(example_data)
