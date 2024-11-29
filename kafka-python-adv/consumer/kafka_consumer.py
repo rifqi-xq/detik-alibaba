@@ -16,8 +16,8 @@ oss_conf = setting.oss_setting
 
 # Buffer for messages grouped by topic
 message_buffer = defaultdict(list)
-BATCH_INTERVAL = 60  # 1 minute in seconds
-MAX_MESSAGES_PER_BATCH = 100  # Maximum messages per batch to avoid oversized files
+batch_interval = 1 * 60 
+# MAX_MESSAGES_PER_BATCH = 100 
 
 def create_kafka_consumer():
     logging.info("Initializing Kafka consumer...")
@@ -32,7 +32,6 @@ def create_kafka_consumer():
             "sasl.password": kafka_conf["sasl_plain_password"],
             "group.id": kafka_conf["group_name"],
             "auto.offset.reset": "latest",
-            "fetch.message.max.bytes": "524288",  # 512 KB
         }
     )
 
@@ -82,7 +81,7 @@ def store_batch_in_oss(bucket, topic=None):
                 message_buffer[topic].clear()
 
 def start_batch_timer(bucket):
-    Timer(BATCH_INTERVAL, store_batch_in_oss, [bucket]).start()
+    Timer(batch_interval, store_batch_in_oss, [bucket]).start()
 
 def main():
     global bucket

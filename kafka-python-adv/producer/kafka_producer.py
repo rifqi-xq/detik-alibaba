@@ -25,7 +25,6 @@ producer = Producer(
         "sasl.password": kafka_conf["sasl_plain_password"],
         "group.id": kafka_conf["group_name"],
         "auto.offset.reset": "latest",
-        "fetch.message.max.bytes": "524288",  # 512 KB
     }
 )
 
