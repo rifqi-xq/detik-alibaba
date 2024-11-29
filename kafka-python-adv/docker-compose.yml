@@ -1,0 +1,16 @@
+---
+services:
+  kafka_consumer:
+    build:
+      context: ./consumer
+    volumes:
+      - ./consumer:/app
+    command: python kafka_consumer.py
+
+  kafka_producer:
+    build:
+      context: ./producer
+    volumes:
+      - ./producer:/app
+    command: python kafka_producer.py
+
