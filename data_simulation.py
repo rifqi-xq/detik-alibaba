@@ -2,6 +2,7 @@ import requests
 import time
 import random
 from datetime import datetime
+import json
 
 # API endpoint
 api_url = "http://8.215.82.122:8000/stream-data"
@@ -10,45 +11,47 @@ api_url = "http://8.215.82.122:8000/stream-data"
 # Simulate RawAppData
 def generate_raw_app_data():
     return {
-        "app_version": "6.5.12",
-        "device_brand": "samsung",
-        "device_id": "detikcom-c77808b154490499",
-        "device_name": "SM-A750GN",
-        "device_vendor_id": "c77808b154490499",
-        "header": {
-            "Accept_Encoding": "gzip",
-            "Connection": "Keep-Alive",
-            "Content_Encoding": "gzip",
-            "Content_Length": "275",
-            "Content_Type": "application/octet-stream",
-            "Entry_Time": "1731560448601",
-            "Logged_Time": "1731560448601",
-            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
-            "Via": "1.1 google",
-            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
-            "X_Forwarded_For": "112.215.65.43, 35.241.10.124",
-            "X_Forwarded_Proto": "https",
-        },
-        "os_version": "10",
-        "screen_resolution": "1080x2220",
-        "sdk_version": "1.1",
-        "sessions": [
-            {
-                "session_start": 1731559489361,
-                "session_end": 1731560089361,
-                "screen_view": [
-                    {
-                        "screen_view": "detikcom_wp/Berita_Terbaru",
-                        "start": 1731560434599,
-                        "end": 1731560446483,
-                        "createddate": 0,
-                        "publisheddate": 0,
-                        "account_type": "acc-wpdetikcom",
-                    }
-                ],
-            }
-        ],
-        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "data": {
+            "app_version": "6.5.12",
+            "device_brand": "samsung",
+            "device_id": "detikcom-c77808b154490499",
+            "device_name": "SM-A750GN",
+            "device_vendor_id": "c77808b154490499",
+            "header": {
+                "Accept_Encoding": "gzip",
+                "Connection": "Keep-Alive",
+                "Content_Encoding": "gzip",
+                "Content_Length": "275",
+                "Content_Type": "application/octet-stream",
+                "Entry_Time": "1731560448601",
+                "Logged_Time": "1731560448601",
+                "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+                "Via": "1.1 google",
+                "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+                "X_Forwarded_For": "112.215.65.43, 35.241.10.124",
+                "X_Forwarded_Proto": "https",
+            },
+            "os_version": "10",
+            "screen_resolution": "1080x2220",
+            "sdk_version": "1.1",
+            "sessions": [
+                {
+                    "session_start": 1731559489361,
+                    "session_end": 1731560089361,
+                    "screen_view": [
+                        {
+                            "screen_view": "detikcom_wp/Berita_Terbaru",
+                            "start": 1731560434599,
+                            "end": 1731560446483,
+                            "createddate": 0,
+                            "publisheddate": 0,
+                            "account_type": "acc-wpdetikcom",
+                        }
+                    ],
+                }
+            ],
+            "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        }
     }
 
 
@@ -130,17 +133,15 @@ def generate_raw_desktop_data():
 def send_streaming_data():
     while True:
         # Randomly send either RawDesktopData or RawAppData
-        data_type = random.choice(["RawDesktopData"])
+        data_type = random.choice(["RawDesktopData", "RawAppData"])
         data_payload = (
             generate_raw_desktop_data()
             if data_type == "RawDesktopData"
             else generate_raw_app_data()
         )
         try:
-            # Add query parameter 'data'
-            # query_params = {"data": "data"}
-            # print(type(data_payload))
-            response = requests.post(api_url, data=data_payload)
+            # Serialize the payload to JSON and add it as a query parameter
+            response = requests.post(api_url, json=data_payload)
 
             if response.status_code == 200:
                 print(f"Data sent successfully ({data_type}): {data_payload}")
