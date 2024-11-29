@@ -24,12 +24,12 @@ def create_kafka_consumer():
     return Consumer(
         {
             "bootstrap.servers": kafka_conf["bootstrap_servers"],
-            "ssl.endpoint.identification.algorithm": "none",
-            "sasl.mechanisms": "PLAIN",
-            "ssl.ca.location": kafka_conf["ca_location"],
-            "security.protocol": "SASL_SSL",
-            "sasl.username": kafka_conf["sasl_plain_username"],
-            "sasl.password": kafka_conf["sasl_plain_password"],
+            # "ssl.endpoint.identification.algorithm": "none",
+            # "sasl.mechanisms": "PLAIN",
+            # "ssl.ca.location": kafka_conf["ca_location"],
+            # "security.protocol": "SASL_SSL",
+            # "sasl.username": kafka_conf["sasl_plain_username"],
+            # "sasl.password": kafka_conf["sasl_plain_password"],
             "group.id": kafka_conf["group_name"],
             "auto.offset.reset": "latest",
         }
@@ -77,7 +77,8 @@ def main():
     bucket = initialize_oss_connection()
 
     # Subscribe to the Kafka topic
-    consumer.subscribe([kafka_conf["topic_name"]])
+    topics = [kafka_conf["topic_name_01"], kafka_conf["topic_name_02"]]
+    consumer.subscribe(topics)
     start_batch_timer(bucket)
 
     try:
@@ -100,7 +101,7 @@ def main():
                 message_str = msg.value().decode("utf-8")
                 message_data = json.loads(message_str)
                 add_message_to_buffer(msg.topic(), message_data)
-                logging.info(f"Received message from topic {msg.topic()}: {message_data}")
+                logging.info(f"Received message from topic {msg.topic()}")
             except Exception as e:
                 logging.error(f"Error decoding message: {e}")
 
