@@ -20,9 +20,6 @@ BATCH_INTERVAL = 60  # 1 minute in seconds
 MAX_MESSAGES_PER_BATCH = 100  # Maximum messages per batch to avoid oversized files
 
 def create_kafka_consumer():
-    """
-    Initialize Kafka consumer with the provided configuration.
-    """
     logging.info("Initializing Kafka consumer...")
     return Consumer(
         {
@@ -40,26 +37,20 @@ def create_kafka_consumer():
     )
 
 def initialize_oss_connection():
-    """
-    Initialize OSS bucket connection.
-    """
     logging.info("Initializing OSS connection...")
     auth = oss2.Auth(oss_conf["oss_access_key_id"], oss_conf["oss_access_key_secret"])
     return oss2.Bucket(auth, oss_conf["oss_endpoint"], oss_conf["oss_bucket_name"])
 
-def add_message_to_buffer(topic: str, message: str):
-    """
-    Add a Kafka message to the buffer, grouped by topic.
-    """
-    message_buffer[topic].append(message)
-    if len(message_buffer[topic]) >= MAX_MESSAGES_PER_BATCH:
+def add_message_to_buffer(topic: str, message):
+    # message_buffer[topic].append(message)
+    print(f"messagenya yg ini: {message}")
+    message_buffer.append(message)
+    # if len(message_buffer[topic]) >= MAX_MESSAGES_PER_BATCH:
+    if len(message_buffer) >= MAX_MESSAGES_PER_BATCH:
         logging.info(f"Max messages reached for topic {topic}. Triggering batch upload.")
         store_batch_in_oss(bucket, topic)
 
 def store_batch_in_oss(bucket, topic=None):
-    """
-    Upload buffered messages to OSS in batches.
-    """
     current_time = int(time.time())
 
     if topic:
@@ -70,12 +61,14 @@ def store_batch_in_oss(bucket, topic=None):
         topics_to_process = list(message_buffer.keys())
 
     for topic in topics_to_process:
-        messages = message_buffer[topic]
+        messages = message_buffer
+        print(f"Check message: {messages}")
         if messages:
             filename = f"{topic}_batch_{current_time}.json"
             batch_content = json.dumps(messages, indent=2).encode("utf-8")
-
+            
             try:
+                print(batch_content)
                 result = bucket.put_object(filename, batch_content)
                 if result.status == 200:
                     logging.info(f"Successfully stored batch in OSS as {filename}")
@@ -88,15 +81,9 @@ def store_batch_in_oss(bucket, topic=None):
                 message_buffer[topic].clear()
 
 def start_batch_timer(bucket):
-    """
-    Schedule periodic batch uploads to OSS for all topics.
-    """
     Timer(BATCH_INTERVAL, store_batch_in_oss, [bucket]).start()
 
 def main():
-    """
-    Main function to consume messages from Kafka and manage batch processing.
-    """
     global bucket
     consumer = create_kafka_consumer()
     bucket = initialize_oss_connection()
@@ -121,9 +108,19 @@ def main():
 
             # Decode and buffer the message
             try:
-                message_str = msg.value().decode("utf-8")
-                add_message_to_buffer(msg.topic(), message_str)
-                logging.info(f"Received message from topic {msg.topic()}: {message_str}")
+                # message_str = msg.value().decode("utf-8")
+                # Decode the Kafka message and parse the JSON
+                message_bytes = msg.value()  # Raw bytes from Kafka
+                message_str = message_bytes.decode('utf-8')  # Convert bytes to string
+                try:
+                    # Parse the JSON string into a Python dictionary
+                    message_data = json.loads(message_str)
+                except json.JSONDecodeError as e:
+                    print(f"Error decoding JSON: {e}")
+                    message_data = {"raw_data": message_str}  # Fallback in case of parsing error
+
+                add_message_to_buffer(msg.topic(), message_data)
+                logging.info(f"Received message from topic {msg.topic()}: {message_data}")
             except Exception as e:
                 logging.error(f"Error decoding message: {e}")
 

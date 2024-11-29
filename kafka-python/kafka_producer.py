@@ -3,7 +3,9 @@ import logging
 import setting
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 # Kafka configuration
 conf = setting.kafka_setting
@@ -24,9 +26,6 @@ TOPIC_NAME = conf["topic_name"]
 
 
 def consume_from_kafka():
-    """
-    Consume data from Kafka topic.
-    """
     try:
         consumer.subscribe([TOPIC_NAME])
         logging.info(f"Subscribed to Kafka topic: {TOPIC_NAME}")
