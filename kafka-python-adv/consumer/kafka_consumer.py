@@ -41,24 +41,12 @@ def initialize_oss_connection():
     return oss2.Bucket(auth, oss_conf["oss_endpoint"], oss_conf["oss_bucket_name"])
 
 def add_message_to_buffer(topic: str, message):
-    # message_buffer[topic].append(message)
-    print(f"messagenya yg ini: {message}")
+    # print(f"messagenya yg ini: {message}")
     message_buffer[topic].append(message)
-    
-    # if len(message_buffer[topic]) >= MAX_MESSAGES_PER_BATCH:
-    if len(message_buffer[topic]) >= MAX_MESSAGES_PER_BATCH:
-        logging.info(f"Max messages reached for topic {topic}. Triggering batch upload.")
-        store_batch_in_oss(bucket, topic)
 
 def store_batch_in_oss(bucket, topic=None):
     current_time = int(time.time())
-
-    if topic:
-        # Handle a specific topic's batch
-        topics_to_process = [topic]
-    else:
-        # Handle all topics if no topic specified
-        topics_to_process = list(message_buffer.keys())
+    topics_to_process = [topic]
 
     for topic in topics_to_process:
         messages = message_buffer
