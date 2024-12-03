@@ -1,116 +1,158 @@
 import time
 import json
+import logging
+from threading import Thread, Event, Timer
+from queue import Queue
+from collections import defaultdict
 from confluent_kafka import Consumer, KafkaError
 import oss2
 import setting
-from threading import Timer
-from collections import defaultdict
-import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# Load configurations
-kafka_conf = setting.kafka_setting
-oss_conf = setting.oss_setting
+class WorkerPool:
+    def __init__(self, worker_count, max_queue_size=100):
+        self.worker_count = worker_count
+        self.job_queue = Queue(maxsize=max_queue_size)
+        self.workers = []
+        self.stop_event = Event()
 
-# Buffer for messages grouped by topic
-message_buffer = defaultdict(list)
-batch_interval = 1 * 60 
-# MAX_MESSAGES_PER_BATCH = 100 
+    def start(self):
+        for worker_id in range(1, self.worker_count + 1):
+            worker = Thread(target=self._worker_task, args=(worker_id,))
+            worker.daemon = True
+            self.workers.append(worker)
+            worker.start()
+        logging.info(f"WorkerPool started with {self.worker_count} workers.")
 
-def create_kafka_consumer():
-    logging.info("Initializing Kafka consumer...")
-    return Consumer(
-        {
-            "bootstrap.servers": kafka_conf["bootstrap_servers"],
-            # "ssl.endpoint.identification.algorithm": "none",
-            # "sasl.mechanisms": "PLAIN",
-            # "ssl.ca.location": kafka_conf["ca_location"],
-            # "security.protocol": "SASL_SSL",
-            # "sasl.username": kafka_conf["sasl_plain_username"],
-            # "sasl.password": kafka_conf["sasl_plain_password"],
-            "group.id": kafka_conf["group_name"],
-            "auto.offset.reset": "latest",
-        }
-    )
+    def stop(self):
+        self.stop_event.set()
+        for worker in self.workers:
+            worker.join()
+        logging.info("WorkerPool stopped.")
 
-def initialize_oss_connection():
-    logging.info("Initializing OSS connection...")
-    auth = oss2.Auth(oss_conf["oss_access_key_id"], oss_conf["oss_access_key_secret"])
-    return oss2.Bucket(auth, oss_conf["oss_endpoint"], oss_conf["oss_bucket_name"])
+    def add_job(self, job):
+        self.job_queue.put(job, block=False)
 
-def add_message_to_buffer(topic: str, message):
-    # print(f"messagenya yg ini: {message}")
-    message_buffer[topic].append(message)
+    def _worker_task(self, worker_id):
+        logging.info(f"Worker {worker_id} started.")
+        while not self.stop_event.is_set():
+            try:
+                job = self.job_queue.get(timeout=1)
+                self.process_job(worker_id, job)
+                self.job_queue.task_done()
+            except:
+                continue
 
-def store_batch_in_oss(bucket, topic=None):
-    current_time = int(time.time())
-    topics_to_process = [topic]
+    def process_job(self, worker_id, job):
+        logging.info(f"Worker {worker_id} processing job: {job}")
 
-    for topic in topics_to_process:
-        messages = message_buffer
-        print(f"Check message: {messages}")
-        if messages:
+
+class BatchProcessor:
+    def __init__(self, oss_config, batch_interval=60):
+        self.message_buffer = defaultdict(list)
+        self.batch_interval = batch_interval
+        self.oss_bucket = self.initialize_oss(oss_config)
+
+    def initialize_oss(self, oss_config):
+        logging.info("Initializing OSS connection...")
+        auth = oss2.Auth(oss_config["oss_access_key_id"], oss_config["oss_access_key_secret"])
+        return oss2.Bucket(auth, oss_config["oss_endpoint"], oss_config["oss_bucket_name"])
+
+    def add_message_to_buffer(self, topic, message):
+        self.message_buffer[topic].append(message)
+
+    def store_batch(self):
+        current_time = int(time.time())
+        for topic, messages in self.message_buffer.items():
+            if not messages:
+                continue
             filename = f"{topic}_batch_{current_time}.json"
             batch_content = json.dumps(messages, indent=2).encode("utf-8")
-            
+
             try:
-                print(batch_content)
-                result = bucket.put_object(filename, batch_content)
+                result = self.oss_bucket.put_object(filename, batch_content)
                 if result.status == 200:
-                    logging.info(f"Successfully stored batch in OSS as {filename}")
+                    logging.info(f"Batch stored in OSS as {filename}")
                 else:
-                    logging.error(f"Failed to store batch for topic {topic} in OSS")
+                    logging.error(f"Failed to store batch for topic {topic}")
             except Exception as e:
                 logging.error(f"Error uploading batch to OSS for topic {topic}: {e}")
             finally:
-                # Clear buffer after upload
-                message_buffer[topic].clear()
+                self.message_buffer[topic].clear()
 
-def start_batch_timer(bucket):
-    Timer(batch_interval, store_batch_in_oss, [bucket]).start()
+    def start_timer(self):
+        Timer(self.batch_interval, self.store_batch).start()
 
-def main():
-    global bucket
-    consumer = create_kafka_consumer()
-    bucket = initialize_oss_connection()
 
-    # Subscribe to the Kafka topic
-    topics = [kafka_conf["topic_name_01"], kafka_conf["topic_name_02"]]
-    consumer.subscribe(topics)
-    start_batch_timer(bucket)
+class KafkaCollector:
+    def __init__(self, kafka_config, topics, worker_pool, batch_processor):
+        self.consumer = Consumer(kafka_config)
+        self.topics = topics
+        self.worker_pool = worker_pool
+        self.batch_processor = batch_processor
 
-    try:
-        while True:
-            # Poll messages from Kafka
-            msg = consumer.poll(1.0)
+    def start(self):
+        logging.info("Starting Kafka collector...")
+        self.consumer.subscribe(self.topics)
+        self.batch_processor.start_timer()
 
-            if msg is None:
-                continue
-            if msg.error():
-                if msg.error().code() == KafkaError._PARTITION_EOF:
+        try:
+            while True:
+                msg = self.consumer.poll(1.0)
+                if msg is None:
                     continue
-                else:
-                    logging.error(f"Consumer error: {msg.error()}")
-                    continue
+                if msg.error():
+                    if msg.error().code() == KafkaError._PARTITION_EOF:
+                        continue
+                    else:
+                        logging.error(f"Consumer error: {msg.error()}")
+                        continue
 
-            # Decode and buffer the message
-            try:
-                # Decode the Kafka message and parse the JSON
-                message_str = msg.value().decode("utf-8")
-                message_data = json.loads(message_str)
-                add_message_to_buffer(msg.topic(), message_data)
-                logging.info(f"Received message from topic {msg.topic()}")
-            except Exception as e:
-                logging.error(f"Error decoding message: {e}")
+                try:
+                    message_str = msg.value().decode("utf-8")
+                    message_data = json.loads(message_str)
+                    self.batch_processor.add_message_to_buffer(msg.topic(), message_data)
+                    self.worker_pool.add_job({"topic": msg.topic(), "message": message_data})
+                    logging.info(f"Message received from topic {msg.topic()}")
+                except Exception as e:
+                    logging.error(f"Error decoding message: {e}")
+        except KeyboardInterrupt:
+            logging.info("Stopping Kafka collector.")
+        finally:
+            self.consumer.close()
 
-    except KeyboardInterrupt:
-        logging.info("Stopping Kafka consumer.")
+    def stop(self):
+        self.consumer.close()
+        logging.info("Kafka collector stopped.")
 
-    finally:
-        consumer.close()
-        logging.info("Kafka consumer closed.")
 
 if __name__ == "__main__":
-    main()
+    kafka_conf = setting.kafka_setting
+    oss_conf = setting.oss_setting
+    
+    kafka_config = {
+        "bootstrap.servers": kafka_conf["bootstrap_servers"],
+    }
+
+    oss_config = {
+        "oss_access_key_id": oss_conf["oss_access_key_id"],
+        "oss_access_key_secret": oss_conf["oss_access_key_secret"],
+        "oss_endpoint": oss_conf["oss_endpoint"],
+        "oss_bucket_name": oss_conf["oss_bucket_name"],
+    }
+
+    topics = [kafka_conf["topic_name_01"], kafka_conf["topic_name_02"]]
+
+    worker_pool = WorkerPool(worker_count=3)
+    batch_processor = BatchProcessor(oss_config, batch_interval=60)
+    kafka_collector = KafkaCollector(kafka_config, topics, worker_pool, batch_processor)
+
+    try:
+        worker_pool.start()
+        kafka_collector.start()
+    except KeyboardInterrupt:
+        logging.info("Shutdown requested.")
+        kafka_collector.stop()
+        worker_pool.stop()
