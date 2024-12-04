@@ -3,6 +3,7 @@ import logging
 from queue import Queue
 from datetime import datetime, timedelta
 import oss2
+from time import sleep
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -11,7 +12,7 @@ class OSSWriter:
     EVENT_ADD_SOURCE = "add_source"
     EVENT_LOAD = "load"
 
-    def __init__(self, name, oss_config, max_queue_size=64):
+    def __init__(self, name, oss_config, max_queue_size=64, retry_attempts=3, retry_delay=5):
         self.name = name
         self.closed = False
 
@@ -23,11 +24,14 @@ class OSSWriter:
         self.event_empty_cond = threading.Condition(self.lock)
         self.event_full_cond = threading.Condition(self.lock)
 
+        self.retry_attempts = retry_attempts
+        self.retry_delay = retry_delay
+
     @staticmethod
     def initialize_oss(oss_config):
+        """Initializes the OSS connection."""
         auth = oss2.Auth(oss_config["oss_access_key_id"], oss_config["oss_access_key_secret"])
-        bucket = oss2.Bucket(auth, oss_config["oss_endpoint"], oss_config["oss_bucket_name"])
-        return bucket
+        return oss2.Bucket(auth, oss_config["oss_endpoint"], oss_config["oss_bucket_name"])
 
     def start(self):
         """Starts the writer in a background thread."""
@@ -39,6 +43,22 @@ class OSSWriter:
             self.closed = True
             self.event_empty_cond.notify_all()
             self.event_full_cond.notify_all()
+
+    def upload_data(self, object_name, data):
+        """
+        Direct upload method for other components to use.
+        Retries on failure based on the configured retry policy.
+        """
+        for attempt in range(1, self.retry_attempts + 1):
+            try:
+                self.oss_bucket.put_object(object_name, data)
+                logging.info(f"Successfully uploaded {object_name} to OSS.")
+                return
+            except Exception as e:
+                logging.error(f"Attempt {attempt} to upload {object_name} failed: {e}")
+                if attempt < self.retry_attempts:
+                    sleep(self.retry_delay)
+        raise RuntimeError(f"Failed to upload {object_name} after {self.retry_attempts} attempts")
 
     def add_source_data(self, uri):
         """Adds a source URI to the event queue."""
@@ -73,7 +93,7 @@ class OSSWriter:
                 while self.event_queue.empty():
                     if self.closed:
                         self._flush_unloaded_uris()
-                        logging.info("OSSWriter service stopped")
+                        logging.info("OSSWriter service stopped.")
                         return
                     self.event_empty_cond.wait()
 
@@ -110,11 +130,16 @@ class OSSWriter:
         """Loads data to OSS as a mock of BigQuery."""
         content = "\n".join(uris).encode("utf-8")
         filename = f"{table_name}.txt"
-        self.oss_bucket.put_object(filename, content)
-        logging.info(f"Data uploaded to OSS as {filename}")
+        self.upload_data(filename, content)
 
     @staticmethod
     def _round_up_15_minutes(dt):
         """Rounds up a datetime to the nearest 15 minutes."""
         new_minute = (dt.minute // 15 + 1) * 15
         return dt.replace(minute=0, second=0, microsecond=0) + timedelta(minutes=new_minute)
+
+    def _flush_unloaded_uris(self):
+        """Flushes remaining URIs on shutdown."""
+        if self.unloaded_uris:
+            logging.warning(f"Flushing {len(self.unloaded_uris)} URIs on shutdown.")
+            self.unloaded_uris.clear()
