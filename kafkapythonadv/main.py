@@ -1,39 +1,23 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from producer.setting import kafka_setting, oss_setting
 from kafkaparser.service import Service
+from setting import kafka_setting, oss_setting
 
 app = FastAPI()
 
-# Kafka Configuration
-kafka_conf = kafka_setting
-oss_conf = oss_setting
+consumer_topics = [kafka_setting["topic_name_01"], kafka_setting["topic_name_02"]]
 
-kafka_config = {
-    "bootstrap.servers": kafka_conf["bootstrap_servers"],
-    "topic_name_01": kafka_conf["topic_name_01"],
-    "topic_name_02": kafka_conf["topic_name_02"],
-}
-
-oss_config = {
-    "oss_access_key_id": oss_conf["oss_access_key_id"],
-    "oss_access_key_secret": oss_conf["oss_access_key_secret"],
-    "oss_endpoint": oss_conf["oss_endpoint"],
-    "oss_bucket_name": oss_conf["oss_bucket_name"],
-}
-
-consumer_topics = [kafka_conf["topic_name_01"], kafka_conf["topic_name_02"]]
-
+# Initialize the Service
 service = Service(
-    kafka_config=kafka_config,
+    kafka_config=kafka_setting,
     consumer_topics=consumer_topics,
-    oss_config=oss_config,
+    oss_config=oss_setting,
     base_path="data/logs",
     worker_count=3,
     batch_interval=60,
 )
 
-# Define the request schema
+# Define a request schema for the endpoint
 class StreamDataRequest(BaseModel):
     data: dict
 
@@ -46,9 +30,9 @@ async def stream_data(request: StreamDataRequest):
     return {"status": "success", "data_sent": request.data}
 
 @app.on_event("startup")
-def on_startup():
+def startup_event():
     service.start()
 
 @app.on_event("shutdown")
-def on_shutdown():
+def shutdown_event():
     service.stop()
