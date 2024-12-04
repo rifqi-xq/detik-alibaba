@@ -1,16 +1,10 @@
 ---
 services:
-  kafka_consumer:
+  app:
     build:
-      context: ./consumer
+      context: .
     volumes:
-      - ./consumer:/app
-    command: python kafka_consumer.py
-
-  kafka_producer:
-    build:
-      context: ./producer
-    volumes:
-      - ./producer:/app
-    command: python kafka_producer.py
-
+      - ./app:/app
+    ports:
+      - "8000:8000"
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
