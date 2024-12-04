@@ -2,7 +2,7 @@ import json
 import logging
 import asyncio
 from threading import Event
-from consumer.setting import kafka_setting, oss_setting
+from setting import kafka_setting, oss_setting
 from confluent_kafka import Consumer, KafkaError
 from kafkaparser.writer.scheduler import Scheduler, round_up_15_minutes
 from kafkaparser.writer.buffer_writer import BufferWriter
@@ -10,18 +10,32 @@ from kafkaparser.writer.worker_pool import WorkerPool
 from kafkaparser.writer.batch_processor import BatchProcessor
 from kafkaparser.writer.oss_writer import OSSWriter
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 class KafkaConsumerService:
-    def __init__(self, kafka_config, topics, oss_config, base_path, worker_count, batch_interval):
-        self.consumer = Consumer(kafka_config)
+    def __init__(
+        self, kafka_config, topics, oss_config, base_path, worker_count, batch_interval
+    ):
+        self.consumer = Consumer(
+            {
+                "bootstrap.servers": kafka_config["bootstrap_servers"],
+                "group.id": kafka_config["group_name"],
+                "auto.offset.reset": "latest",
+            }
+        )
         self.topics = topics
         self.stop_event = Event()
 
         oss_writer = OSSWriter(name="kafka_to_oss_writer", oss_config=oss_config)
         buffer_writer = BufferWriter(oss_writer, base_path=base_path)
-        self.batch_processor = BatchProcessor(writer=buffer_writer, batch_interval=batch_interval)
+        self.batch_processor = BatchProcessor(
+            buffer_writer=buffer_writer, batch_interval=batch_interval
+        )
         self.worker_pool = WorkerPool(worker_count=worker_count)
+
         self.scheduler = Scheduler(next_time_func=round_up_15_minutes)
         self.scheduler_queue = self.scheduler.register()
         self.logger = logging.getLogger("KafkaConsumerService")
@@ -47,8 +61,12 @@ class KafkaConsumerService:
             try:
                 message_data = json.loads(msg.value().decode("utf-8"))
                 self.batch_processor.add_message_to_buffer(msg.topic(), message_data)
-                self.worker_pool.add_job({"topic": msg.topic(), "message": message_data})
-                self.logger.info(f"Message received and job added for topic {msg.topic()}")
+                self.worker_pool.add_job(
+                    {"topic": msg.topic(), "message": message_data}
+                )
+                self.logger.info(
+                    f"Message received and job added for topic {msg.topic()}"
+                )
             except Exception as e:
                 self.logger.error(f"Error decoding message: {e}")
 
@@ -67,11 +85,13 @@ class KafkaConsumerService:
         self.worker_pool.stop()
         self.logger.info("Kafka consumer stopped.")
 
+
 if __name__ == "__main__":
+
     async def main():
         kafka_config = {
             "bootstrap.servers": kafka_setting["bootstrap_servers"],
-            "group.id": "consumer_group_1",
+            "group.id": kafka_setting["group_name"],
         }
         oss_config = {
             "oss_access_key_id": oss_setting["oss_access_key_id"],
