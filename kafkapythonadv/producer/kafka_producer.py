@@ -2,8 +2,6 @@ from confluent_kafka import Producer, KafkaException
 import json
 import logging
 import time
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 
 # Configure logging
 logging.basicConfig(
@@ -57,35 +55,3 @@ class KafkaProducerService:
     def flush(self):
         self.producer.flush()
         self.logger.info("Kafka producer flushed.")
-
-# FastAPI Integration
-app = FastAPI()
-
-# FastAPI Endpoint Request Schema
-class StreamDataRequest(BaseModel):
-    data: dict
-
-# Kafka Settings
-kafka_conf = {
-    "bootstrap_servers": "your-bootstrap-servers",
-    "topic_name_01": "apps-topic",
-    "topic_name_02": "desktop-topic",
-}
-
-# Initialize Kafka Producer
-kafka_service = KafkaProducerService(kafka_conf)
-
-@app.post("/stream-data")
-async def receive_stream_data(request: StreamDataRequest):
-    try:
-        kafka_service.produce_data(request.data)
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Failed to send data to Kafka: {e}"
-        )
-    return {"status": "success", "data_sent": request}
-
-@app.on_event("shutdown")
-def shutdown_event():
-    kafka_service.flush()
