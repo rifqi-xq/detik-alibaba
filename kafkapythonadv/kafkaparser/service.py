@@ -3,7 +3,7 @@ import logging
 from threading import Thread
 from consumer.kafka_consumer import KafkaConsumerService
 from producer.kafka_producer import KafkaProducerService
-from transformer import build_desktop_doc_from_byte_slice, build_apps_doc_from_byte_slice  # Import multiple transformers
+from kafkaparser.transformer import apps, article, desktop, visitor
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -23,8 +23,12 @@ class Service:
 
         # Dictionary to hold transformers and their associated producer IDs
         self.transformers = {
-            "desktop": build_desktop_doc_from_byte_slice,
-            "apps": build_apps_doc_from_byte_slice,
+            "apps_doc": apps.build_apps_doc_from_byte_slice,
+            "desktop_doc": desktop.build_desktop_doc_from_byte_slice,
+            "article_byte_apps": article.extract_article_byte_slice_from_apps_doc,
+            "article_byte_desktop": article.extract_article_byte_slice_from_desktop_doc,
+            "visitor_byte_apps": article.extract_article_byte_slice_from_apps_doc,
+            "visitor_byte_desktop": article.extract_article_byte_slice_from_desktop_doc,            
         }
 
     def start(self):
@@ -37,28 +41,12 @@ class Service:
     def _run_consumer(self):
         asyncio.run(self.kafka_consumer.start())
 
-    def transform_and_produce_data(self, raw_data: bytes, transformer_key: str):
-        """
-        Apply a specific transformation to raw data and produce transformed data to Kafka.
-
-        :param raw_data: JSON-encoded byte string containing data.
-        :param transformer_key: Key to select the appropriate transformer.
-        """
-        transformer = self.transformers.get(transformer_key)
-        if not transformer:
-            self.logger.error(f"Transformer '{transformer_key}' not found.")
-            return
-
+    def produce_data(self, raw_data: bytes):
         try:
-            # Apply the selected transformation
-            transformed_data = transformer(raw_data)
-            self.logger.info(f"Transformed Data with {transformer_key}: {transformed_data}")
-
-            # Produce transformed data
-            self.kafka_producer.produce_data(transformed_data)
-            self.logger.info(f"Transformed data ({transformer_key}) produced to Kafka.")
+            self.kafka_producer.produce_data(raw_data)
+            self.logger.info("Data produced to Kafka.")
         except ValueError as e:
-            self.logger.error(f"Failed to transform data using '{transformer_key}': {e}")
+            self.logger.error(f"Failed to transform data: {e}")
 
     def stop(self):
         """Stop the service and its components."""
