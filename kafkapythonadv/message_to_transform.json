@@ -1,0 +1,1191 @@
+[
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386427
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386429
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386428
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386431
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386433
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386436
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386439
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386440
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386443
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386444
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386447
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386448
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386453
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386457
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386459
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386460
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386461
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386466
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386467
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386469
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386470
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386471
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386472
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386479
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386480
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386481
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386483
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386484
+    },
+    {
+        "app_version": "6.5.12",
+        "device_brand": "samsung",
+        "device_id": "detikcom-c77808b154490499",
+        "device_name": "SM-A750GN",
+        "device_vendor_id": "c77808b154490499",
+        "header": {
+            "Accept_Encoding": "gzip",
+            "Connection": "Keep-Alive",
+            "Content_Encoding": "gzip",
+            "Content_Length": "275",
+            "Content_Type": "application/octet-stream",
+            "Entry_Time": "1731560448601",
+            "Logged_Time": "1731560448601",
+            "User_Agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+            "Via": "1.1 google",
+            "X_Cloud_Trace_Context": "754d140446f5a08d5e2c20aa19ed67da/7446109000015744094",
+            "X_Forwarded_For": "112.215.65.43,35.241.10.124", "X_Forwarded_Proto": "https"
+        },
+        "os_version": "10",
+        "screen_resolution": "1080x2220",
+        "sdk_version": "1.1",
+        "sessions": [
+            {
+                "session_start": 1731559489361,
+                "session_end": 1731560089361,
+                "screen_view": [
+                    {
+                        "screen_view": "detikcom_wp/Berita_Terbaru",
+                        "start": 1731560434599,
+                        "end": 1731560446483,
+                        "createddate": 0,
+                        "publisheddate": 0,
+                        "account_type": "acc-wpdetikcom"
+                    }
+                ]
+            }
+        ],
+        "user_agent": "Dalvik/2.1.0 (Linux; U; Android 10; SM-A750GN Build/QP1A.190711.020)",
+        "timestamp": 1733386485
+    }
+]
