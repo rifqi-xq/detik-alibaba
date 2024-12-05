@@ -21,16 +21,6 @@ class Service:
         )
         self.consumer_thread = None
 
-        # Dictionary to hold transformers and their associated producer IDs
-        self.transformers = {
-            "apps_doc": apps.build_apps_doc_from_byte_slice,
-            "desktop_doc": desktop.build_desktop_doc_from_byte_slice,
-            "article_byte_apps": article.extract_article_byte_slice_from_apps_doc,
-            "article_byte_desktop": article.extract_article_byte_slice_from_desktop_doc,
-            "visitor_byte_apps": article.extract_article_byte_slice_from_apps_doc,
-            "visitor_byte_desktop": article.extract_article_byte_slice_from_desktop_doc,            
-        }
-
     def start(self):
         """Start the service and its components."""
         self.logger.info("Starting service...")
@@ -44,7 +34,7 @@ class Service:
     def produce_data(self, raw_data: bytes):
         try:
             self.kafka_producer.produce_data(raw_data)
-            self.logger.info("Data produced to Kafka.")
+            self.logger.info("--Data produced to Kafka.")
         except ValueError as e:
             self.logger.error(f"Failed to transform data: {e}")
 
