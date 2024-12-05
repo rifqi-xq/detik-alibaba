@@ -23,7 +23,10 @@ class KafkaConsumerService:
                 "auto.offset.reset": "latest",
             }
         )
-        self.topics = topics
+        
+        # self.topics = topics
+        self.topics = ["apps", "desktop"]
+        
         self.stop_event = Event()
         self.batch_processor = OSSBatchProcessor(
             oss_config=oss_config, base_path=base_path, batch_interval=batch_interval
@@ -32,8 +35,15 @@ class KafkaConsumerService:
         self.logger = logging.getLogger("KafkaConsumerService")
 
     async def _consume_messages(self):
+        
+        self.logger.info(self.stop_event.is_set())
+        
         while not self.stop_event.is_set():
+            
             msg = self.consumer.poll(1.0)
+            
+            self.logger.info("(1) Message polled successfully.")
+            
             if msg is None:
                 continue
             if msg.error():
@@ -47,7 +57,7 @@ class KafkaConsumerService:
                     {"topic": msg.topic(), "message": message_data}
                 )
                 self.logger.info(
-                    f"Message received and job added for topic {msg.topic()}"
+                    f"(3) Message received and job added for topic {msg.topic()}"
                 )
             except Exception as e:
                 self.logger.error(f"Error decoding message: {e}")
@@ -55,6 +65,8 @@ class KafkaConsumerService:
     async def start(self):
         self.consumer.subscribe(self.topics)
         self.worker_pool.start()
+        self.batch_processor.start()
+        self.logger.info("Kafka Consumer is ready to receive data.")
         try:
             await self._consume_messages()
         finally:

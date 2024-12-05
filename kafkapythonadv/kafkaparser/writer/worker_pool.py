@@ -37,6 +37,7 @@ class WorkerPool:
                 continue
 
     def process_job(self, worker_id, job):
-        logging.info(f"Worker {worker_id} processing job: {job}")
+        # logging.info(f"Worker {worker_id} processing job: {job}")
+        logging.info(f"Worker {worker_id} processing job.")
     
 

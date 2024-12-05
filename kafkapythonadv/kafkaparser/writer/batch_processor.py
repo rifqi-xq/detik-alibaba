@@ -36,6 +36,7 @@ class OSSBatchProcessor:
         )
         self.base_path = base_path
         self.retry_attempts, self.retry_delay = retry_attempts, retry_delay
+        self.logger = logging.getLogger("OSSBatchProcessor")
 
         # Buffer and batching
         self.buffer = bytearray()
@@ -52,7 +53,8 @@ class OSSBatchProcessor:
 
     def start(self):
         """Start background threads for processing events and periodic flushing."""
-        threading.Thread(target=self._process_events, daemon=True).start()
+        self.logger.info("(0) Running the periodic flush")
+        # threading.Thread(target=self._process_events, daemon=True).start()
         Timer(self.batch_interval, self._flush_batches_periodically).start()
 
     def stop(self):
@@ -65,6 +67,9 @@ class OSSBatchProcessor:
     def add_message(self, topic, message):
         """Add a message to the buffer for a specific topic."""
         with self.lock:
+
+            self.logger.info(f"(2) Appended {topic} message")
+
             self.message_buffer[topic].append(message)
 
     def add_source_data(self, uri):
@@ -81,6 +86,7 @@ class OSSBatchProcessor:
         """Process events from the queue in a background thread."""
         while not (self.closed and self.event_queue.empty()):
             try:
+                self.logger.info(self.event_queue)
                 event = self.event_queue.get(timeout=1)
                 if event["type"] == "add_source":
                     self.unloaded_uris.append(event["data"]["uri"])
@@ -150,6 +156,10 @@ class OSSBatchProcessor:
         try:
             with self.lock:
                 for topic, messages in list(self.message_buffer.items()):
+                    
+                    # self.logger.info(f"(4a) Checking message: {messages}")    ## Successfully checked
+                    # self.logger.info(f"(4b) Checking topic: {topic}")         ## Successfully checked
+                    
                     if messages:
                         try:
                             transformed_data = self._transform_messages(topic, messages)
@@ -168,28 +178,34 @@ class OSSBatchProcessor:
     def _transform_messages(
         self, topic: str, messages: List[Dict[str, Any]]
     ) -> Optional[bytes]:
-        """Transform messages using the appropriate transformer."""
+        """Transform messages using the appropriate transformer. """
         transformed_data = []
         errors = []
 
+        self.logger.info("(6a) messages are to be transformed...")
+        
         for message in messages:
+            message_str = json.dumps(message)
+            self.logger.info(f"(6a) {type(message_str)} message to transform")
             try:
                 if topic == "desktop":
-                    desktop_doc = desktop.build_desktop_doc_from_byte_slice(message)
+                    desktop_doc = desktop.build_desktop_doc_from_byte_slice(message_str)
                     article_data, article_errs = (
                         article.extract_article_byte_slice_from_desktop_doc(desktop_doc)
                     )
                     visitor_data, visitor_errs = (
                         visitor.extract_visitor_byte_slice_from_desktop_doc(desktop_doc)
                     )
+                    self.logger.info("Desktop data parsed successfully.")
                 elif topic == "apps":
-                    apps_doc = apps.build_apps_doc_from_byte_slice(message)
+                    apps_doc = apps.build_apps_doc_from_byte_slice(message_str)
                     article_data, article_errs = (
                         article.extract_article_byte_slice_from_apps_doc(apps_doc)
                     )
                     visitor_data, visitor_errs = (
                         visitor.extract_visitor_byte_slice_from_apps_doc(apps_doc)
                     )
+                    self.logger.info("Apps data parsed successfully.")
                 else:
                     logging.warning(f"Unknown topic {topic}. Skipping transformation.")
                     continue
@@ -218,7 +234,7 @@ class OSSBatchProcessor:
                 logging.error(f"Error processing message for topic {topic}: {e}")
 
         if errors:
-            logging.error(f"Errors occurred during message transformation: {errors}")
+            logging.error(f"Errors occurred during topic {topic} message transformation: {errors}")
 
         if transformed_data:
             return b"\n".join(transformed_data)
