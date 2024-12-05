@@ -163,6 +163,9 @@ class OSSBatchProcessor:
                     if messages:
                         try:
                             transformed_data = self._transform_messages(topic, messages)
+                            
+                            self.logger.info(f"(7) Data transformed successfully: {transformed_data}")
+                            
                             if transformed_data:
                                 self.add_data(transformed_data)
                         except Exception as e:
@@ -233,8 +236,8 @@ class OSSBatchProcessor:
                 errors.append(e)
                 logging.error(f"Error processing message for topic {topic}: {e}")
 
-        if errors:
-            logging.error(f"Errors occurred during topic {topic} message transformation: {errors}")
+        # if errors:
+        #     logging.error(f"Errors occurred during topic {topic} message transformation: {errors}")
 
         if transformed_data:
             return b"\n".join(transformed_data)
