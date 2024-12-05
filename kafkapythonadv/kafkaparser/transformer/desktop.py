@@ -30,13 +30,16 @@ class DesktopDoc:
         self.custom_page_type = data.get("custom_pagetype", [])
         self.custom_page_number = data.get("custom_pagenumber", [])
         self.custom_page_size = data.get("custom_pagesize", [])
+    
+    def get(self, key: str, default: Any = None) -> Any:
+        return getattr(self, key, default)
 
 
 def build_desktop_doc_from_byte_slice(raw_data: bytes) -> Union[DesktopDoc, None]:
     try:
+        print("Parsing DesktopDoc...")
         data_dict = json.loads(raw_data)
-        desktop_doc = DesktopDoc(data_dict)
-        return desktop_doc
+        return DesktopDoc(data_dict)
     except json.JSONDecodeError as e:
-        print(f"Failed to parse rawData: {e}, rawData: {raw_data}")
+        print(f"Failed to parse rawData: {e}")
         return None

@@ -1,5 +1,5 @@
 import json
-from typing import List, Optional, Tuple, Dict
+from typing import Any, List, Optional, Tuple, Dict
 
 
 class VisitorDoc:
@@ -32,37 +32,38 @@ def parse_unixto_datetime(unix_time: int) -> str:
         return ""
 
 
-def extract_visitor_byte_slice_from_desktop_doc(raw_data: Dict[str, any]) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
+def extract_visitor_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     """
     Extract visitor data from desktop document source and return as serialized JSON byte slices.
     """
     try:
+        print("Parsing VisitorDoc from DesktopsDoc...")
         # Extract EntryTime and handle errors
-        entry_time = raw_data.get("entryTime", "0")
+        entry_time = raw_data.get("entry_time", "0")
         try:
             entry_time = int(entry_time)
         except ValueError:
             entry_time = 0
 
         # Extract XRealIP
-        x_real_ip_list = raw_data.get("xRealIp", [])
+        x_real_ip_list = raw_data.get("x_real_ip", [])
         x_real_ip = x_real_ip_list[0].split(",") if x_real_ip_list else []
 
         visitor = {
-            "uniqueVisitor": raw_data.get("uniqueVisitor", ""),
-            "detikId": raw_data.get("detikId", ""),
-            "gaId": raw_data.get("gaId", ""),
-            "tokenId": raw_data.get("tokenPushNotification", ""),
+            "uniqueVisitor": raw_data.get("unique_visitor", ""),
+            "detikId": raw_data.get("detik_id", ""),
+            "gaId": raw_data.get("ga", ""),
+            "tokenId": raw_data.get("token_push_notification", ""),
             "dtmac": raw_data.get("dtmac", ""),
-            "dtmacSub": raw_data.get("dtmacSub", ""),
+            "dtmacSub": raw_data.get("dtmac_sub", ""),
             "dtmf": raw_data.get("dtmf", ""),
             "xRealIp": x_real_ip[0] if x_real_ip else "",
-            "sessionNotif": raw_data.get("sessionNotif", ""),
-            "userAgent": raw_data.get("userAgent", ""),
+            "sessionNotif": raw_data.get("session_notif", ""),
+            "userAgent": raw_data.get("user_agent", ""),
             "loggedTime": parse_unixto_datetime(int(time.time())),
             "enteryDate": parse_unixto_datetime(entry_time),
-            "serviceVersion": raw_data.get("serviceVersion", "unknown"),
-            "serviceGitcommit": raw_data.get("serviceGitCommit", "unknown"),
+            "serviceVersion": raw_data.get("service_version", "unknown"),
+            "serviceGitcommit": raw_data.get("service_git_commit", "unknown"),
         }
 
         return [json.dumps(visitor).encode("utf-8")], None
@@ -70,23 +71,24 @@ def extract_visitor_byte_slice_from_desktop_doc(raw_data: Dict[str, any]) -> Tup
         return None, [e]
 
 
-def extract_visitor_byte_slice_from_apps_doc(raw_data: Dict[str, any]) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
+def extract_visitor_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     """
     Extract visitor data from apps document source and return as serialized JSON byte slices.
     """
     try:
+        print("Parsing VisitorDoc from AppsDoc...")
         doc_slices = []
         error_slices = []
 
         # Parse LoggedTime and EntryTime
         header = raw_data.get("header", {})
         try:
-            logged_time = int(header.get("Logged_Time", "0"))
+            logged_time = int(header.get("logged_time", "0"))
         except ValueError:
             logged_time = 0
 
         try:
-            entry_time = int(header.get("Entry_Time", "0"))
+            entry_time = int(header.get("entry_time", "0"))
         except ValueError:
             entry_time = 0
 
@@ -94,9 +96,9 @@ def extract_visitor_byte_slice_from_apps_doc(raw_data: Dict[str, any]) -> Tuple[
             for row in session.get("screen_view", []):
                 # Prepare visitor data
                 detik_id = row.get("detik_id", "-") if row.get("detik_id", "-") != "-" else "-"
-                token_id = row.get("token_push_notification", "-") if row.get("token_push_notification", "-") != "-" else "-"
+                token_id = row.get("token_id", "-") if row.get("token_id", "-") != "-" else "-"
 
-                x_real_ip = header.get("X_Forwarded_For", "").split(",")[0]
+                x_real_ip = header.get("x_forwarded_for", "").split(",")[0]
 
                 visitor = {
                     "uniqueVisitor": raw_data.get("device_id", ""),
@@ -107,11 +109,11 @@ def extract_visitor_byte_slice_from_apps_doc(raw_data: Dict[str, any]) -> Tuple[
                     "dtmacSub": "apps",
                     "dtmf": raw_data.get("device_vendor_id", ""),
                     "xRealIp": x_real_ip,
-                    "userAgent": header.get("User_Agent", ""),
+                    "userAgent": header.get("user_agent", ""),
                     "loggedTime": parse_unixto_datetime(logged_time),
                     "enteryDate": parse_unixto_datetime(entry_time),
-                    "serviceVersion": raw_data.get("serviceVersion", "unknown"),
-                    "serviceGitcommit": raw_data.get("serviceGitCommit", "unknown"),
+                    "serviceVersion": raw_data.get("service_version", "unknown"),
+                    "serviceGitcommit": raw_data.get("service_git_commit", "unknown"),
                 }
 
                 try:

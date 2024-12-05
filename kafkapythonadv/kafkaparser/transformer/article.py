@@ -39,37 +39,37 @@ class ArticleDoc:
 
 def extract_article_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     try:
-        # Assuming raw_data is a dictionary-like object derived from DesktopDoc
-        desktop_doc = raw_data  # No type conversion as we rely on Python's duck typing
+        print("Parsing ArticleDoc from DesktopDoc...")
+        desktop_doc = raw_data  # Assuming raw_data is an instance of DesktopDoc
 
-        entry_time = int(desktop_doc.get("entryTime", "0"))  # Default to 0 if parsing fails
+        entry_time = int(desktop_doc.get("entry_time", "0"))  # Default to 0 if parsing fails
         article_doc = ArticleDoc({
-            "uniqueVisitor": desktop_doc.get("uniqueVisitor", ""),
-            "detikId": desktop_doc.get("detikId", ""),
-            "sessionNotif": desktop_doc.get("sessionNotif", ""),
+            "uniqueVisitor": desktop_doc.get("unique_visitor", ""),
+            "detikId": desktop_doc.get("detik_id", ""),
+            "sessionNotif": desktop_doc.get("session_notif", ""),
             "gaId": desktop_doc.get("ga", ""),
-            "tokenId": desktop_doc.get("tokenPushNotification", ""),
+            "tokenId": desktop_doc.get("token_push_notification", ""),
             "dtmac": desktop_doc.get("dtmac", ""),
-            "dtmacSub": desktop_doc.get("dtmacSub", ""),
+            "dtmacSub": desktop_doc.get("dtmac_sub", ""),
             "dtmf": desktop_doc.get("dtmf", ""),
             "domain": desktop_doc.get("domain", ""),
-            "kanalId": desktop_doc.get("kanalId", ""),
-            "articleId": desktop_doc.get("articleId", ""),
-            "siteId": desktop_doc.get("siteId", ""),
+            "kanalId": desktop_doc.get("kanal_id", ""),
+            "articleId": desktop_doc.get("article_id", ""),
+            "siteId": desktop_doc.get("site_id", ""),
             "title": desktop_doc.get("title", ""),
             "url": desktop_doc.get("url", ""),
             "referer": desktop_doc.get("referer", ""),
-            "headerReferer": desktop_doc.get("headerReferer", ""),
+            "headerReferer": desktop_doc.get("header_referer", ""),
             "keywords": desktop_doc.get("keywords", ""),
-            "createdDate": desktop_doc.get("createdDate", 0),
-            "publishDate": desktop_doc.get("publishDate", 0),
+            "createdDate": desktop_doc.get("created_date", 0),
+            "publishDate": desktop_doc.get("publish_date", 0),
             "enteryDate": entry_time,
-            "customPageType": desktop_doc.get("customPageType", ""),
-            "customPageNumber": desktop_doc.get("customPageNumber", ""),
-            "customPageSize": desktop_doc.get("customPageSize", ""),
+            "customPageType": desktop_doc.get("custom_page_type", ""),
+            "customPageNumber": desktop_doc.get("custom_page_number", ""),
+            "customPageSize": desktop_doc.get("custom_page_size", ""),
             "loggedTime": int(datetime.now().timestamp()),
-            "serviceVersion": "1.0.0",  # Example version placeholder
-            "serviceGitcommit": "abcdefg"  # Example git commit placeholder
+            "serviceVersion": "1.0.0",
+            "serviceGitcommit": "abcdefg"
         })
 
         data_slice = json.dumps(article_doc.__dict__).encode("utf-8")
@@ -80,16 +80,17 @@ def extract_article_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional
 
 def extract_article_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     try:
-        apps_doc = raw_data  # Assuming raw_data is a dictionary-like object derived from AppsDoc
+        print("Parsing ArticleDoc from AppsDoc...")
+        apps_doc = raw_data  # Assuming raw_data is an instance of AppsDoc
 
         doc_slice = []
         error_slice = []
 
-        logged_time = int(apps_doc.get("header", {}).get("loggedTime", "0"))
-        entry_time = int(apps_doc.get("header", {}).get("entryTime", "0"))
+        logged_time = int(apps_doc.get("header", {}).get("logged_time", "0"))
+        entry_time = int(apps_doc.get("header", {}).get("entry_time", "0"))
 
         for session in apps_doc.get("sessions", []):
-            for row in session.get("screenView", []):
+            for row in session.get("screen_view", []):
                 try:
                     domain = ""
                     if "dtmp" in row:
@@ -97,29 +98,29 @@ def extract_article_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[Li
                         domain = parsed_url.split('/')[2] if '/' in parsed_url else ""
 
                     article = {
-                        "uniqueVisitor": apps_doc.get("deviceID", ""),
-                        "detikId": row.get("detikID", "-"),
-                        "tokenId": row.get("tokenID", "-"),
+                        "uniqueVisitor": apps_doc.get("device_id", ""),
+                        "detikId": row.get("detik_id", "-"),
+                        "tokenId": row.get("token_id", "-"),
                         "gaId": "-",
-                        "dtmac": row.get("accountType", ""),
+                        "dtmac": row.get("account_type", ""),
                         "dtmacSub": "apps",
                         "domain": domain,
-                        "dtmf": apps_doc.get("deviceVendorID", ""),
+                        "dtmf": apps_doc.get("device_vendor_id", ""),
                         "kanalId": row.get("kanalid", ""),
-                        "articleId": row.get("articleID", ""),
+                        "articleId": row.get("article_id", ""),
                         "siteId": "",
                         "title": row.get("dtmdt", ""),
                         "url": row.get("dtmp", ""),
                         "keywords": row.get("keywords", ""),
                         "createdDate": row.get("createddate", 0),
                         "publishDate": row.get("publisheddate", 0),
-                        "customPageNumber": row.get("customPageNumber", ""),
-                        "customPageSize": row.get("customPageSize", ""),
-                        "customPageType": row.get("customPageType", ""),
+                        "customPageNumber": row.get("custom_page_number", ""),
+                        "customPageSize": row.get("custom_page_size", ""),
+                        "customPageType": row.get("custom_page_type", ""),
                         "loggedTime": logged_time,
                         "enteryDate": entry_time,
-                        "serviceVersion": "1.0.0",  # Example version placeholder
-                        "serviceGitcommit": "abcdefg"  # Example git commit placeholder
+                        "serviceVersion": "1.0.0",
+                        "serviceGitcommit": "abcdefg"
                     }
 
                     js = json.dumps(article).encode("utf-8")

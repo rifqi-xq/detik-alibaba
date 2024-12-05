@@ -17,6 +17,9 @@ class AppsHeader:
         self.x_forwarded_for = data.get("X_Forwarded_For", "")
         self.user_agent = data.get("User_Agent", "")
 
+    def get(self, key: str, default: Any = None) -> Any:
+        return getattr(self, key, default)
+
 
 class AppsScreenView:
     def __init__(self, data: Dict[str, Any]):
@@ -37,6 +40,9 @@ class AppsScreenView:
         self.custom_page_number = data.get("custom_page_number", "")
         self.custom_page_size = data.get("custom_page_size", "")
 
+    def get(self, key: str, default: Any = None) -> Any:
+        return getattr(self, key, default)
+
 
 class AppsEvent:
     def __init__(self, data: Dict[str, Any]):
@@ -44,13 +50,21 @@ class AppsEvent:
         self.category = data.get("category", "")
         self.action = data.get("action", "")
 
+    def get(self, key: str, default: Any = None) -> Any:
+        return getattr(self, key, default)
+
 
 class AppsSession:
     def __init__(self, data: Dict[str, Any]):
         self.session_start = data.get("session_start", 0)
         self.session_end = data.get("session_end", 0)
         self.event = [AppsEvent(event) for event in data.get("event", [])]
-        self.screen_view = [AppsScreenView(view) for view in data.get("screen_view", [])]
+        self.screen_view = [
+            AppsScreenView(view) for view in data.get("screen_view", [])
+        ]
+
+    def get(self, key: str, default: Any = None) -> Any:
+        return getattr(self, key, default)
 
 
 class AppsDoc:
@@ -66,11 +80,15 @@ class AppsDoc:
         self.sessions = [AppsSession(session) for session in data.get("sessions", [])]
         self.header = AppsHeader(data.get("header", {}))
 
+    def get(self, key: str, default: Any = None) -> Any:
+        return getattr(self, key, default)
+
 
 def build_apps_doc_from_byte_slice(raw_data: bytes) -> Optional[AppsDoc]:
     try:
         # Parse raw_data as JSON
-        parsed_data = json.loads(raw_data.decode("utf-8"))
+        print("Parsing AppsDoc...")
+        parsed_data = json.loads(raw_data)
         return AppsDoc(parsed_data)
     except json.JSONDecodeError as e:
         print(f"Failed to parse rawData: {e}")
