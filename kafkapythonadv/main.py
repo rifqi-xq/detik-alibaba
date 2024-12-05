@@ -14,7 +14,7 @@ service = Service(
     oss_config=oss_setting,
     base_path="data/logs",
     worker_count=3,
-    batch_interval=60,
+    batch_interval=5,
 )
 
 # Define a request schema for the endpoint
