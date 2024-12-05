@@ -1,5 +1,6 @@
 import json
 from typing import Any, Dict, Union
+import logging
 
 
 class DesktopDoc:
@@ -37,9 +38,8 @@ class DesktopDoc:
 
 def build_desktop_doc_from_byte_slice(raw_data: bytes) -> Union[DesktopDoc, None]:
     try:
-        print("Parsing DesktopDoc...")
         data_dict = json.loads(raw_data)
         return DesktopDoc(data_dict)
-    except json.JSONDecodeError as e:
-        print(f"Failed to parse rawData: {e}")
-        return None
+    except Exception as e:
+        logging.error(f"Error building desktop doc: {e}")
+

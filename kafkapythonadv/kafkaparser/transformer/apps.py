@@ -1,5 +1,6 @@
 import json
 from typing import List, Optional, Dict, Any
+import logging
 
 
 class AppsHeader:
@@ -87,9 +88,7 @@ class AppsDoc:
 def build_apps_doc_from_byte_slice(raw_data: bytes) -> Optional[AppsDoc]:
     try:
         # Parse raw_data as JSON
-        print("Parsing AppsDoc...")
         parsed_data = json.loads(raw_data)
         return AppsDoc(parsed_data)
-    except json.JSONDecodeError as e:
-        print(f"Failed to parse rawData: {e}")
-        return None
+    except Exception as e:
+        logging.error(f"Error building apps doc: {e}")

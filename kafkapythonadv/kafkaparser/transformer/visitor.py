@@ -1,5 +1,6 @@
 import json
 from typing import Any, List, Optional, Tuple, Dict
+import logging
 
 
 class VisitorDoc:
@@ -37,7 +38,6 @@ def extract_visitor_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional
     Extract visitor data from desktop document source and return as serialized JSON byte slices.
     """
     try:
-        print("Parsing VisitorDoc from DesktopsDoc...")
         # Extract EntryTime and handle errors
         entry_time = raw_data.get("entry_time", "0")
         try:
@@ -68,7 +68,7 @@ def extract_visitor_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional
 
         return [json.dumps(visitor).encode("utf-8")], None
     except Exception as e:
-        return None, [e]
+        logging.error(f"Error extracting visitor from desktop doc: {e}")
 
 
 def extract_visitor_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
@@ -76,7 +76,6 @@ def extract_visitor_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[Li
     Extract visitor data from apps document source and return as serialized JSON byte slices.
     """
     try:
-        print("Parsing VisitorDoc from AppsDoc...")
         doc_slices = []
         error_slices = []
 
@@ -123,4 +122,4 @@ def extract_visitor_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[Li
 
         return doc_slices if doc_slices else None, error_slices if error_slices else None
     except Exception as e:
-        return None, [e]
+        logging.error(f"Error extracting visitor from apps doc: {e}")

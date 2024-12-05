@@ -1,6 +1,7 @@
 import json
 from typing import Any, Dict, List, Optional, Tuple
 from datetime import datetime
+import logging
 
 class ArticleDoc:
     def __init__(self, data: Dict[str, Any]):
@@ -39,7 +40,6 @@ class ArticleDoc:
 
 def extract_article_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     try:
-        print("Parsing ArticleDoc from DesktopDoc...")
         desktop_doc = raw_data  # Assuming raw_data is an instance of DesktopDoc
 
         entry_time = int(desktop_doc.get("entry_time", "0"))  # Default to 0 if parsing fails
@@ -76,11 +76,10 @@ def extract_article_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional
         return [data_slice], None
 
     except Exception as e:
-        return None, [e]
+        logging.error(f"Error extracting article from desktop doc: {e}")
 
 def extract_article_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     try:
-        print("Parsing ArticleDoc from AppsDoc...")
         apps_doc = raw_data  # Assuming raw_data is an instance of AppsDoc
 
         doc_slice = []
@@ -132,4 +131,4 @@ def extract_article_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[Li
         return doc_slice if doc_slice else None, error_slice if error_slice else None
 
     except Exception as e:
-        return None, [e]
+        logging.error(f"Error extracting article from apps doc: {e}")
