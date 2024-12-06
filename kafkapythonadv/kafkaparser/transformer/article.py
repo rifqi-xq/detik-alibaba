@@ -22,26 +22,31 @@ class ArticleDoc:
         self.referer = data.get("referer", "")
         self.header_referer = data.get("headerReferer", "")
         self.keywords = data.get("keywords", "")
-        self.created_date = self.parse_datetime(data.get("createdDate"))
-        self.publish_date = self.parse_datetime(data.get("publishDate"))
-        self.entery_date = self.parse_datetime(data.get("enteryDate"))
+        self.created_date = str(self.parse_datetime(data.get("createdDate")))
+        self.publish_date = str(self.parse_datetime(data.get("publishDate")))
+        self.entery_date = str(self.parse_datetime(data.get("enteryDate")))
         self.custom_page_type = data.get("customPageType", "")
         self.custom_page_number = data.get("customPageNumber", "")
         self.custom_page_size = data.get("customPageSize", "")
-        self.logged_time = self.parse_datetime(data.get("loggedTime"))
+        self.logged_time = str(self.parse_datetime(data.get("loggedTime")))
         self.service_version = data.get("serviceVersion", "")
         self.service_git_commit = data.get("serviceGitcommit", "")
 
     @staticmethod
     def parse_datetime(value: Optional[Any]) -> Optional[datetime]:
         if isinstance(value, int):
-            return datetime.fromtimestamp(value)
+            return datetime.fromtimestamp(value / 1000)
         return None
 
 def extract_article_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     try:
+        
+        # logging.info(datetime.now().timestamp())
+        # logging.info(raw_data.get("createdDate"))
+        # logging.info(raw_data.get("publishDate"))
+        # logging.info(str(raw_data)[:50])
+
         desktop_doc = raw_data  # Assuming raw_data is an instance of DesktopDoc
-        entry_time = int("".join(desktop_doc.get("entry_time", "0")))  # Default to 0 if parsing fails
         article_doc = ArticleDoc({
             "uniqueVisitor": desktop_doc.get("unique_visitor", ""),
             "detikId": desktop_doc.get("detik_id", ""),
@@ -62,16 +67,19 @@ def extract_article_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional
             "keywords": desktop_doc.get("keywords", ""),
             "createdDate": desktop_doc.get("created_date", 0),
             "publishDate": desktop_doc.get("publish_date", 0),
-            "enteryDate": entry_time,
+            "enteryDate": int("".join(desktop_doc.get("entry_time", "0"))),
             "customPageType": desktop_doc.get("custom_page_type", ""),
             "customPageNumber": desktop_doc.get("custom_page_number", ""),
             "customPageSize": desktop_doc.get("custom_page_size", ""),
-            "loggedTime": int(datetime.now().timestamp()),
+            # "loggedTime": int(datetime.now().timestamp()),
+            "loggedTime": 0,
             "serviceVersion": "1.0.0",
             "serviceGitcommit": "abcdefg"
         })
 
         data_slice = json.dumps(article_doc.__dict__).encode("utf-8")
+        
+        # logging.info(f"{data_slice}")
         return [data_slice], None
 
     except Exception as e:
@@ -110,8 +118,8 @@ def extract_article_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[Li
                         "title": row.get("dtmdt", ""),
                         "url": row.get("dtmp", ""),
                         "keywords": row.get("keywords", ""),
-                        "createdDate": row.get("createddate", 0),
-                        "publishDate": row.get("publisheddate", 0),
+                        "createdDate": str(row.get("createddate", 0)),
+                        "publishDate": str(row.get("publisheddate", 0)),
                         "customPageNumber": row.get("custom_page_number", ""),
                         "customPageSize": row.get("custom_page_size", ""),
                         "customPageType": row.get("custom_page_type", ""),

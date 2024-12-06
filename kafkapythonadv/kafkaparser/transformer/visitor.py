@@ -1,7 +1,7 @@
 import json
 from typing import Any, List, Optional, Tuple, Dict
 import logging
-
+import time
 
 class VisitorDoc:
     def __init__(self, data: Dict[str, str]):
@@ -33,13 +33,20 @@ def parse_unixto_datetime(unix_time: int) -> str:
         return ""
 
 
-def extract_visitor_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
+def extract_visitor_byte_slice_from_desktop_doc(
+    raw_data: Any,
+) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     """
     Extract visitor data from desktop document source and return as serialized JSON byte slices.
     """
     try:
+        
+        logging.info(f"(6c) Visitor Time: {time.time()}")
+        
         # Extract EntryTime and handle errors
-        entry_time = raw_data.get("entry_time", "0")
+        entry_time = "".join(raw_data.get("entry_time", "0"))
+        logging.info(f"(6d) Entry time Time: {entry_time}")
+        
         try:
             entry_time = int(entry_time)
         except ValueError:
@@ -49,29 +56,37 @@ def extract_visitor_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional
         x_real_ip_list = raw_data.get("x_real_ip", [])
         x_real_ip = x_real_ip_list[0].split(",") if x_real_ip_list else []
 
-        visitor = {
-            "uniqueVisitor": raw_data.get("unique_visitor", ""),
-            "detikId": raw_data.get("detik_id", ""),
-            "gaId": raw_data.get("ga", ""),
-            "tokenId": raw_data.get("token_push_notification", ""),
-            "dtmac": raw_data.get("dtmac", ""),
-            "dtmacSub": raw_data.get("dtmac_sub", ""),
-            "dtmf": raw_data.get("dtmf", ""),
-            "xRealIp": x_real_ip[0] if x_real_ip else "",
-            "sessionNotif": raw_data.get("session_notif", ""),
-            "userAgent": raw_data.get("user_agent", ""),
-            "loggedTime": parse_unixto_datetime(int(time.time())),
-            "enteryDate": parse_unixto_datetime(entry_time),
-            "serviceVersion": raw_data.get("service_version", "unknown"),
-            "serviceGitcommit": raw_data.get("service_git_commit", "unknown"),
-        }
+        # logging.info(parse_unixto_datetime(int(time.time())))
 
-        return [json.dumps(visitor).encode("utf-8")], None
+        visitor = VisitorDoc(
+            {
+                "uniqueVisitor": raw_data.get("unique_visitor", ""),
+                "detikId": raw_data.get("detik_id", ""),
+                "gaId": raw_data.get("ga", ""),
+                "tokenId": raw_data.get("token_push_notification", ""),
+                "dtmac": raw_data.get("dtmac", ""),
+                "dtmacSub": raw_data.get("dtmac_sub", ""),
+                "dtmf": raw_data.get("dtmf", ""),
+                "xRealIp": x_real_ip[0] if x_real_ip else "",
+                "sessionNotif": raw_data.get("session_notif", ""),
+                "userAgent": raw_data.get("user_agent", ""),
+                "loggedTime": parse_unixto_datetime(int(time.time())),
+                "enteryDate": parse_unixto_datetime(entry_time),
+                "serviceVersion": raw_data.get("service_version", "unknown"),
+                "serviceGitcommit": raw_data.get("service_git_commit", "unknown"),
+            }
+        )
+
+        data_slice = json.dumps(visitor.__dict__).encode("utf-8")
+        
+        return [data_slice], None
     except Exception as e:
         logging.error(f"Error extracting visitor from desktop doc: {e}")
 
 
-def extract_visitor_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
+def extract_visitor_byte_slice_from_apps_doc(
+    raw_data: Any,
+) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     """
     Extract visitor data from apps document source and return as serialized JSON byte slices.
     """
@@ -94,32 +109,42 @@ def extract_visitor_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[Li
         for session in raw_data.get("sessions", []):
             for row in session.get("screen_view", []):
                 # Prepare visitor data
-                detik_id = row.get("detik_id", "-") if row.get("detik_id", "-") != "-" else "-"
-                token_id = row.get("token_id", "-") if row.get("token_id", "-") != "-" else "-"
+                detik_id = (
+                    row.get("detik_id", "-") if row.get("detik_id", "-") != "-" else "-"
+                )
+                token_id = (
+                    row.get("token_id", "-") if row.get("token_id", "-") != "-" else "-"
+                )
 
                 x_real_ip = header.get("x_forwarded_for", "").split(",")[0]
 
-                visitor = {
-                    "uniqueVisitor": raw_data.get("device_id", ""),
-                    "detikId": detik_id,
-                    "tokenId": token_id,
-                    "gaId": "-",
-                    "dtmac": row.get("account_type", ""),
-                    "dtmacSub": "apps",
-                    "dtmf": raw_data.get("device_vendor_id", ""),
-                    "xRealIp": x_real_ip,
-                    "userAgent": header.get("user_agent", ""),
-                    "loggedTime": parse_unixto_datetime(logged_time),
-                    "enteryDate": parse_unixto_datetime(entry_time),
-                    "serviceVersion": raw_data.get("service_version", "unknown"),
-                    "serviceGitcommit": raw_data.get("service_git_commit", "unknown"),
-                }
+                visitor = VisitorDoc(
+                    {
+                        "uniqueVisitor": raw_data.get("device_id", ""),
+                        "detikId": detik_id,
+                        "tokenId": token_id,
+                        "gaId": "-",
+                        "dtmac": row.get("account_type", ""),
+                        "dtmacSub": "apps",
+                        "dtmf": raw_data.get("device_vendor_id", ""),
+                        "xRealIp": x_real_ip,
+                        "userAgent": header.get("user_agent", ""),
+                        "loggedTime": parse_unixto_datetime(logged_time),
+                        "enteryDate": parse_unixto_datetime(entry_time),
+                        "serviceVersion": raw_data.get("service_version", "unknown"),
+                        "serviceGitcommit": raw_data.get(
+                            "service_git_commit", "unknown"
+                        ),
+                    }
+                )
 
                 try:
                     doc_slices.append(json.dumps(visitor).encode("utf-8"))
                 except Exception as e:
                     error_slices.append(e)
 
-        return doc_slices if doc_slices else None, error_slices if error_slices else None
+        return doc_slices if doc_slices else None, (
+            error_slices if error_slices else None
+        )
     except Exception as e:
         logging.error(f"Error extracting visitor from apps doc: {e}")

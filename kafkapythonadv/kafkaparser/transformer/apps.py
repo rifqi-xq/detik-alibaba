@@ -80,6 +80,33 @@ class AppsDoc:
         self.app_version = data.get("app_version", "")
         self.sessions = [AppsSession(session) for session in data.get("sessions", [])]
         self.header = AppsHeader(data.get("header", {}))
+    
+        logging.info(f"""(6b) Apps Doc
+            device_id: {self.device_id},
+            device_vendor_id: {self.device_vendor_id},
+            device_name: {self.device_name},
+            device_brand: {self.device_brand},
+            os_version: {self.os_version},
+            sdk_version: {self.sdk_version},
+            screen_resolution: {self.screen_resolution},
+            app_version: {self.app_version},
+            sessions: {self.sessions},
+            header: {{
+                x_forwarded_host: {self.header.x_forwarded_host},
+                x_forwarded_server: {self.header.x_forwarded_server},
+                content_type: {self.header.content_type},
+                content_length: {self.header.content_length},
+                content_encoding: {self.header.content_encoding},
+                x_real_ip: {self.header.x_real_ip},
+                connection: {self.header.connection},
+                accept_encoding: {self.header.accept_encoding},
+                logged_time: {self.header.logged_time},
+                entry_time: {self.header.entry_time},
+                x_forwarded_for: {self.header.x_forwarded_for},
+                user_agent: {self.header.user_agent}
+            }}
+            """)
+
 
     def get(self, key: str, default: Any = None) -> Any:
         return getattr(self, key, default)

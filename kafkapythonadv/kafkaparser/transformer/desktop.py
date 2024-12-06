@@ -31,15 +31,50 @@ class DesktopDoc:
         self.custom_page_type = data.get("custom_pagetype", [])
         self.custom_page_number = data.get("custom_pagenumber", [])
         self.custom_page_size = data.get("custom_pagesize", [])
-    
+
+        # logging.info(f"""(6b) Desktop Doc
+        #     unique_visitor: {self.unique_visitor},
+        #     detik_id: {self.detik_id},
+        #     session_notif: {self.session_notif},
+        #     ga: {self.ga},
+        #     dtmac: {self.dtmac},
+        #     dtmac_sub: {self.dtmac_sub},
+        #     dtmf: {self.dtmf},
+        #     domain: {self.domain},
+        #     kanal_id: {self.kanal_id},
+        #     article_id: {self.article_id},
+        #     site_id: {self.site_id},
+        #     title: {self.title},
+        #     url: {self.url},
+        #     referer: {self.referer},
+        #     header_referer: {self.header_referer},
+        #     keywords: {self.keywords},
+        #     token_push_notification: {self.token_push_notification},
+        #     created_date: {self.created_date},
+        #     entry_time: {self.entry_time},
+        #     publish_date: {self.publish_date},
+        #     x_real_ip: {self.x_real_ip},
+        #     user_agent: {self.user_agent},
+        #     custom_site_id: {self.custom_site_id},
+        #     custom_page_type: {self.custom_page_type},
+        #     custom_page_number: {self.custom_page_number},
+        #     custom_page_size: {self.custom_page_size}
+        #     """)
+
+        
     def get(self, key: str, default: Any = None) -> Any:
         return getattr(self, key, default)
 
 
 def build_desktop_doc_from_byte_slice(raw_data: bytes) -> Union[DesktopDoc, None]:
     try:
+        
+        # logging.info(f"raw data → desktop: {raw_data}")
         data_dict = json.loads(raw_data)
-        return DesktopDoc(data_dict)
+        desktop_transformed = DesktopDoc(data_dict)
+        # logging.info(f"desktop transformed → article: {desktop_transformed}")
+        
+        return desktop_transformed
     except Exception as e:
         logging.error(f"Error building desktop doc: {e}")
 
