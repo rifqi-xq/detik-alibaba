@@ -151,7 +151,7 @@ def send_streaming_data():
                 )
         except requests.ConnectionError:
             print("Failed to connect to the API server.")
-            break
+            continue
 
         # Simulate 1 second delay for data sending
         time.sleep(1)
