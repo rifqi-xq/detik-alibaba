@@ -59,8 +59,9 @@ class KafkaConsumerService:
                 self.logger.info(
                     f"(3) Message received and job added for topic {msg.topic()}"
                 )
-            except Exception as e:
-                self.logger.error(f"Error decoding message: {e}")
+            except:
+                self.logger.error("Error decoding message")
+
 
     async def start(self):
         self.consumer.subscribe(self.topics)

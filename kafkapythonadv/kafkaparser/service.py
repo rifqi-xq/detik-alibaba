@@ -34,7 +34,6 @@ class Service:
     def produce_data(self, raw_data: bytes):
         try:
             self.kafka_producer.produce_data(raw_data)
-            self.logger.info("--Data produced to Kafka.")
         except ValueError as e:
             self.logger.error(f"Failed to transform data: {e}")
 
