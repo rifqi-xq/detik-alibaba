@@ -41,8 +41,7 @@ class ArticleDoc:
 def extract_article_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional[List[bytes]], Optional[List[Exception]]]:
     try:
         desktop_doc = raw_data  # Assuming raw_data is an instance of DesktopDoc
-
-        entry_time = int(desktop_doc.get("entry_time", "0"))  # Default to 0 if parsing fails
+        entry_time = int("".join(desktop_doc.get("entry_time", "0")))  # Default to 0 if parsing fails
         article_doc = ArticleDoc({
             "uniqueVisitor": desktop_doc.get("unique_visitor", ""),
             "detikId": desktop_doc.get("detik_id", ""),
