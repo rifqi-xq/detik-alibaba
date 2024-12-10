@@ -40,13 +40,8 @@ def extract_visitor_byte_slice_from_desktop_doc(
     Extract visitor data from desktop document source and return as serialized JSON byte slices.
     """
     try:
-        
-        logging.info(f"(6c) Visitor Time: {time.time()}")
-        
         # Extract EntryTime and handle errors
         entry_time = "".join(raw_data.get("entry_time", "0"))
-        logging.info(f"(6d) Entry time Time: {entry_time}")
-        
         try:
             entry_time = int(entry_time)
         except ValueError:
@@ -139,10 +134,12 @@ def extract_visitor_byte_slice_from_apps_doc(
                 )
 
                 try:
-                    doc_slices.append(json.dumps(visitor).encode("utf-8"))
+                    doc_slices.append(json.dumps(visitor.__dict__).encode("utf-8"))
                 except Exception as e:
+                    logging.error(f"Error extracting visitor from apps doc: {e}")
                     error_slices.append(e)
 
+        # logging.info(f"visitor from apps_doc: {doc_slices}")
         return doc_slices if doc_slices else None, (
             error_slices if error_slices else None
         )

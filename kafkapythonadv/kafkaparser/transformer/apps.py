@@ -81,31 +81,31 @@ class AppsDoc:
         self.sessions = [AppsSession(session) for session in data.get("sessions", [])]
         self.header = AppsHeader(data.get("header", {}))
     
-        logging.info(f"""(6b) Apps Doc
-            device_id: {self.device_id},
-            device_vendor_id: {self.device_vendor_id},
-            device_name: {self.device_name},
-            device_brand: {self.device_brand},
-            os_version: {self.os_version},
-            sdk_version: {self.sdk_version},
-            screen_resolution: {self.screen_resolution},
-            app_version: {self.app_version},
-            sessions: {self.sessions},
-            header: {{
-                x_forwarded_host: {self.header.x_forwarded_host},
-                x_forwarded_server: {self.header.x_forwarded_server},
-                content_type: {self.header.content_type},
-                content_length: {self.header.content_length},
-                content_encoding: {self.header.content_encoding},
-                x_real_ip: {self.header.x_real_ip},
-                connection: {self.header.connection},
-                accept_encoding: {self.header.accept_encoding},
-                logged_time: {self.header.logged_time},
-                entry_time: {self.header.entry_time},
-                x_forwarded_for: {self.header.x_forwarded_for},
-                user_agent: {self.header.user_agent}
-            }}
-            """)
+        # logging.info(f"""(6b) Apps Doc
+        #     device_id: {self.device_id},
+        #     device_vendor_id: {self.device_vendor_id},
+        #     device_name: {self.device_name},
+        #     device_brand: {self.device_brand},
+        #     os_version: {self.os_version},
+        #     sdk_version: {self.sdk_version},
+        #     screen_resolution: {self.screen_resolution},
+        #     app_version: {self.app_version},
+        #     sessions: {self.sessions},
+        #     header: {{
+        #         x_forwarded_host: {self.header.x_forwarded_host},
+        #         x_forwarded_server: {self.header.x_forwarded_server},
+        #         content_type: {self.header.content_type},
+        #         content_length: {self.header.content_length},
+        #         content_encoding: {self.header.content_encoding},
+        #         x_real_ip: {self.header.x_real_ip},
+        #         connection: {self.header.connection},
+        #         accept_encoding: {self.header.accept_encoding},
+        #         logged_time: {self.header.logged_time},
+        #         entry_time: {self.header.entry_time},
+        #         x_forwarded_for: {self.header.x_forwarded_for},
+        #         user_agent: {self.header.user_agent}
+        #     }}
+        #     """)
 
 
     def get(self, key: str, default: Any = None) -> Any:
@@ -114,8 +114,12 @@ class AppsDoc:
 
 def build_apps_doc_from_byte_slice(raw_data: bytes) -> Optional[AppsDoc]:
     try:
-        # Parse raw_data as JSON
+        
+        # logging.info(f"raw data → apps: {raw_data}")
         parsed_data = json.loads(raw_data)
-        return AppsDoc(parsed_data)
+        apps_transformed= AppsDoc(parsed_data)
+        # logging.info(f"apps transformed → article: {apps_transformed}")
+        
+        return apps_transformed
     except Exception as e:
         logging.error(f"Error building apps doc: {e}")

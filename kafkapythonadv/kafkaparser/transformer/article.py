@@ -71,8 +71,8 @@ def extract_article_byte_slice_from_desktop_doc(raw_data: Any) -> Tuple[Optional
             "customPageType": desktop_doc.get("custom_page_type", ""),
             "customPageNumber": desktop_doc.get("custom_page_number", ""),
             "customPageSize": desktop_doc.get("custom_page_size", ""),
-            # "loggedTime": int(datetime.now().timestamp()),
-            "loggedTime": 0,
+            "loggedTime": int(datetime.now().timestamp()),
+            # "loggedTime": 0,
             "serviceVersion": "1.0.0",
             "serviceGitcommit": "abcdefg"
         })
@@ -98,10 +98,9 @@ def extract_article_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[Li
         for session in apps_doc.get("sessions", []):
             for row in session.get("screen_view", []):
                 try:
-                    domain = ""
-                    if "dtmp" in row:
-                        parsed_url = row.get("dtmp", "")
-                        domain = parsed_url.split('/')[2] if '/' in parsed_url else ""
+                    # Access 'dtmp' from the AppsScreenView object using its 'get' method
+                    parsed_url = row.get("dtmp", "")
+                    domain = parsed_url.split('/')[2] if '/' in parsed_url else ""
 
                     article = {
                         "uniqueVisitor": apps_doc.get("device_id", ""),
@@ -133,8 +132,10 @@ def extract_article_byte_slice_from_apps_doc(raw_data: Any) -> Tuple[Optional[Li
                     doc_slice.append(js)
 
                 except Exception as e:
+                    logging.error(f"Error extracting article from apps doc: {e}")
                     error_slice.append(e)
 
+        # logging.info(f"article from apps_doc: {doc_slice}")
         return doc_slice if doc_slice else None, error_slice if error_slice else None
 
     except Exception as e:
