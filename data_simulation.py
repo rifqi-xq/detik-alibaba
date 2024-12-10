@@ -144,7 +144,7 @@ def send_streaming_data():
             response = requests.post(api_url, json=data_payload)
 
             if response.status_code == 200:
-                print(f"Data sent successfully ({data_type}): {(str(data_payload))[:40]}")
+                print(f"Data sent successfully - {datetime.now()} - ({data_type}): {(str(data_payload))[:40]}")
             else:
                 print(
                     f"Failed to send data ({data_type}): {response.status_code} - {response.text}"
