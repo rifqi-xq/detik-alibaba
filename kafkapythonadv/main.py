@@ -12,7 +12,7 @@ service = Service(
     kafka_config=kafka_setting,
     consumer_topics=consumer_topics,
     oss_config=oss_setting,
-    base_path="data/logs",
+    base_path="data",
     worker_count=3,
     batch_interval=5,
 )
